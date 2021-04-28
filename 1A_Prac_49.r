@@ -9,7 +9,7 @@ Scourie <- read.csv("1A_Practical_49_Sourie_Sr.csv")
 # c stands for combine or concatenate the values into a list
 
 
-ggplot(data=Scourie, aes(x=Scourie$`Rb/Sr`, y=Scourie$`87Sr/86Sr`))+
+ggplot(data=Scourie, aes(x=Scourie$X87Rb.86Sr, y=Scourie$X87Sr.86Sr))+
   geom_point()+
   geom_smooth(method=lm)
 
@@ -35,19 +35,19 @@ PLOT<-ggplot(NULL)+
 
 
 Sr<-PLOT+
-  geom_point(data=Scourie, aes(x=Scourie$`Rb/Sr`, y=Scourie$`87Sr/86Sr`))+
-  geom_smooth(data=Scourie, aes(x=Scourie$`Rb/Sr`, y=Scourie$`87Sr/86Sr`), method=lm)+
+  geom_point(data=Scourie, aes(x=Scourie$X87Rb.86Sr, y=Scourie$X87Sr.86Sr))+
+  geom_smooth(data=Scourie, aes(x=Scourie$X87Rb.86Sr, y=Scourie$X87Sr.86Sr), method=lm)+
   labs(title = "Scourie", x="Rb/Sr", y="87Sr/86Sr")
-
+Sr
 ggsave("Sr.pdf", Sr)
 
 #lm stands for linear model
 
-fit <- lm(`87Sr/86Sr`~`Rb/Sr`, data = Scourie)
-Fit_coefficients=as_tibble(fit$coefficients)
+fit <- lm(X87Sr.86Sr~X87Rb.86Sr, data = Scourie)
+Fit_coefficients=as.data.frame(fit$coefficients)
 
-slope=Fit_coefficients[c(2),c("value")]
-intercept=Fit_coefficients[c(1),c("value")]
+slope=Fit_coefficients[c("X87Rb.86Sr"),c("fit$coefficients")]
+intercept=Fit_coefficients[c("(Intercept)"),c("fit$coefficients")]
 
 
 
@@ -56,7 +56,7 @@ Age/1e6
 
 
 
-Terrane_ages<-tibble("Age"=c(2770, 2330, 1690, 2626, 2630, 2550, 2850, 2260, 2390, 2460, 1749, 649, 550, 757, 776, 1002, 1030, 556, 649, 550, 757, 776, 1002, 1030, 556, 784, 590, 749, 740, 1782, 1710, 605, 1070, 1000, 1224, 1101, 1000, 626, 620, 587, 643, 667, 536, 558, 638, 690, 693, 615, 2100, 570, 2018, 582, 2100))
+Terrane_ages<-data.frame("Age"=c(2770, 2330, 1690, 2626, 2630, 2550, 2850, 2260, 2390, 2460, 1749, 649, 550, 757, 776, 1002, 1030, 556, 649, 550, 757, 776, 1002, 1030, 556, 784, 590, 749, 740, 1782, 1710, 605, 1070, 1000, 1224, 1101, 1000, 626, 620, 587, 643, 667, 536, 558, 638, 690, 693, 615, 2100, 570, 2018, 582, 2100))
 
 PLOT+
   geom_histogram(data=Terrane_ages, aes(x=Age))
